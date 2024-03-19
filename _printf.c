@@ -38,7 +38,7 @@ while(*format)
                 count++;
                 str++;
             }
-}
+    }
         }
         if(*format == 'd')
         {
@@ -57,5 +57,5 @@ count++;
 }
 }
 va_end(args);
-return count;
+return (count);
 }
