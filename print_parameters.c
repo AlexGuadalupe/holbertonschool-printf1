@@ -10,6 +10,13 @@ unsigned int print_parameters(char specifier, va_list args)
 {
 	unsigned int printed_chars = 0;
 
+	if (specifier == '%')
+		{
+		putchar('%');
+    	printed_chars++;
+		}
+	else
+	{
 	switch (specifier)
 	{
 	case 'c':
@@ -46,6 +53,7 @@ unsigned int print_parameters(char specifier, va_list args)
 		putchar(specifier);
 		printed_chars += 2;
 		break;
+	}
 	}
 	return (printed_chars);
 }
