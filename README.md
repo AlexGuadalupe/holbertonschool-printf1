@@ -14,7 +14,7 @@ c, s, %, d, and i.
 - [Flowcharts](#flowcharts)
 - [Contributing](#contributing)
 - [License](#license)
-- [Made By](#made by)
+- [MadeBy](#madeby)
 
 ## Istallation
 
