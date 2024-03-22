@@ -1,35 +1,51 @@
 #include "main.h"
+/**
+ * handle_conversion - Handles conversion specifiers in a format string.
+ * @specifier: The conversion specifier character.
+ * @args: The list of arguments for the format string.
+ *
+ * Return: The number of characters printed.
+ */
+unsigned int print_parameters(char specifier, va_list args)
+{
+	unsigned int printed_chars = 0;
 
-/*
- * print_parameter - Functions that prints the
-parameter according to the format specifier
- * @args: arguments
- * @specifier: format specifier
- * Return: Number of chars to be printed
-*/
-int print_parameter(va_list args, char specifier) {
-    switch (specifier) {
-        case 's': {
-            char *str = va_arg(args, char *);
-            int count = 0;
-            while (*str != '\0') {
-                putchar(*str);
-                str++;
-                count++;
-            }
-            return count;
-        }
-        case 'c': {
-            char ch = va_arg(args, int);
-            putchar(ch);
-            return 1;
-        }
-        case 'd': {
-            int num = va_arg(args, int);
-            printf("%d", num);
-            return 1;
-        }
-        default:
-            return 0;
-    }
+	switch (specifier)
+	{
+	case 'c':
+		putchar(va_arg(args, int));
+		printed_chars++;
+		break;
+	case 's':
+		printed_chars += printf_letters(va_arg(args, char *));
+		break;
+	case '%':
+		putchar('%');
+		break;
+	case 'd':
+	case 'i':
+		printed_chars += print_digits(args);
+		break;
+	case 'o':
+		printed_chars += process_octal(args);
+		break;
+	case 'p':
+		printed_chars += process_pointer(args);
+		break;
+	case 'x':
+		printed_chars += process_hexadecimal(args);
+		break;
+	case 'X':
+		printed_chars += process_hexadecimal(args);
+		break;
+	case 'u':
+		printed_chars += manejar_entero_sin_signo(args);
+		break;
+	default:
+		putchar('%');
+		putchar(specifier);
+		printed_chars += 2;
+		break;
+	}
+	return (printed_chars);
 }
