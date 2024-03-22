@@ -1,63 +1,33 @@
 #include "main.h"
-#include <stdio.h>
+#include "printf.h"
 
-
-/**
-* _printf: printf.
-* @format: variable tu print.
-* @args: arguments.
+/*
+ * _printf- Program
+ * @Format: string be formatted
+ * Return: count
 */
 
-int _printf(const char *format, ...)
-{
-va_list args;
-unsigned int count = 0;
-va_start(args, *format);
+int _printf(const char *format, ...) {
+    va_list args;
+    int count = 0;
 
-while (*format)
-{
-if (*format == '%')
-{
-format++;
+    va_start(args, format);
 
-if (*format == 'c')
-{
-putchar(va_arg(args, int));
-count++;
-}
-if (*format == 's')
-{
-char *str = va_arg(args, char *);
-if (str == NULL)
-{
-count += printf("(null)");
-}
-else
-{
-while (*str)
-{
-putchar(*str);
-count++;
-str++;
-}
-}
-}
-if (*format == 'd')
-{
-putchar(va_arg(args, int));
-count++;
-}
-else if (*format == 'i')
-{
-putchar(va_arg(args, int));
-count++;
-}
+    while (*format != '\0') {
+        if (*format == '%') {
+            format++;
+            if (*format == '\0') {
+                break;
+            }
+            count += print_parameter(args, *format);
+        } else {
+            putchar(*format);
+            count++;
+        }
+        format++;
+    }
 
-putchar(*format++);
-count++;
+    va_end(args);
 
-}
-}
-va_end(args);
-return (count);
+    return count;
 }
