@@ -9,10 +9,23 @@ int _printf(const char *format, ...)
 {
 int printed_chars = 0;
 va_list args;
+	va_start(args, format);
+while (*format != '\0')
+{
 
-va_start(args, format);
-printed_chars = print_parameters(*format, args);
-va_end(args);
+    if (*format == '%')
+	{
+    format++;
+	printed_chars += print_parameters (*format, args);
+    }
+else
+{
+    printed_chars += putchar(*format);
+}
+    format++;
+}
+	va_end(args);
 
-return (printed_chars);
+	return (printed_chars);
+
 }
